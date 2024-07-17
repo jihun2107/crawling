@@ -15,7 +15,7 @@ service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=options)
 
 def get_blog_content(url): #블로그url 입력받기
-    driver.get(url) #url로 이동
+    driver.get(url) #url로 이동하기
     time.sleep(5)  # 페이지 로딩 대기
 
     # 네이버 블로그 본문 내용 추출
