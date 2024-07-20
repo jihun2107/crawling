@@ -1,20 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 import pymysql
 import time
-import re
 from datetime import datetime
 
-ChromeDriverManager().install()
-
-chrome_options = Options()
-chrome_options.add_experimental_option("detach", True)
-
-
-# 크롬 드라이버 실행
-browser = webdriver.Chrome()
 
 # 네이버 플레이스에서 각 맛집의 블로그 리뷰를 
 restaurants = [
@@ -120,6 +112,42 @@ restaurants = [
     # "더 스테이크 하우스"
 ]
 
+# 크롬 드라이버 실행
+browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+
+# 네이버 플레이스 홈 화면 url
+url = "https://map.naver.com/p?c=15.00,0,0,0,dh"
+
+blog_url_list = []
+
 for i in restaurants:
-    url = f'https://map.naver.com/p/search/{i}?c=13.00,0,0,0,dh'
+    # 네이버 플레이스 홈화면을 브라우저로 띄움
     browser.get(url)
+
+    # 검색창 찾기
+    browser.find_element(By.CLASS_NAME, "input_search")
+
+    # 검색창에 맛집 리스트 순서대로 맛집 입력
+    browser.find_element(By.CLASS_NAME, "input_search").send_keys(i)
+
+    # 검색창으로 검색(엔터를 누름)
+    browser.find_element(By.CLASS_NAME, "input_search").send_keys(Keys.ENTER)
+
+    # 첫번째로 나온 맛집을 클릭
+    browser.find_element(By.CLASS_NAME, "YwYLL").click
+
+    # 리뷰 페이지로 이동
+    browser.find_element(By.CLASS_NAME, "tpj9w").click
+
+    # 블로그 페이지로 이동
+    browser.find_element(By.CLASS_NAME, "YsfhA").click
+
+    # 1개의 맛집에서 10개의 블로그주소를 크롤링
+    url_data = browser.find_elements(By.CLASS_NAME, "uUMhQ")
+    for i in url_data:
+        blog_url = i.get_attribute("href")
+        blog_url_list.append(blog_url)
+    
+    time.sleep(7)
+
+print(blog_url_list)
