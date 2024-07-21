@@ -163,12 +163,18 @@ conn = pymysql.connect(
 
 # DB 에 데이터를 저장
 with conn.cursor() as cur:
+    # 만들어 논 list에서 하나씩 블로그에 들어감
     for i in blog_url_list:
         try:
+            # 블로그에 들어감
             browser.get(i)
+
+            # 블로그에 타이틀과 리뷰 글을 스크랩
             title = browser.find_element(By.CLASS_NAME, 'pcol1').text
             review = browser.find_element(By.CLASS_NAME, 'se-main-container').text
 
+
+            # insert를 이용하여 DB에 정보 입력
             sql = """INSERT INTO Books(
                 title, review
                 )
@@ -177,8 +183,11 @@ with conn.cursor() as cur:
                 )
                 """
 
+            # 정보를 커밋
             time.sleep(1)
             cur.execute(sql, (title, review))
             conn.commit()
+
+        # 만약 정보가 없거나 예외가 발생시 패스
         except Exception  as e:
             print(e)
