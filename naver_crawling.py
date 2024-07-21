@@ -148,6 +148,37 @@ for i in restaurants:
         blog_url = i.get_attribute("href")
         blog_url_list.append(blog_url)
     
+    # 사람으로 인식하도록 타임슬립
     time.sleep(7)
 
-print(blog_url_list)
+# MySQL과 연결
+conn = pymysql.connect(
+    host = 'localhost',
+    user = 'root',
+    password = 'ans!!941105',
+    db = 'naver_crawling',
+    charset = 'utf8mb4',
+    cursorclass = pymysql.cursors.DictCursor
+)
+
+# DB 에 데이터를 저장
+with conn.cursor() as cur:
+    for i in blog_url_list:
+        try:
+            browser.get(i)
+            title = browser.find_element(By.CLASS_NAME, 'pcol1').text
+            review = browser.find_element(By.CLASS_NAME, 'se-main-container').text
+
+            sql = """INSERT INTO Books(
+                title, review
+                )
+                VALUES(
+                %s, %s
+                )
+                """
+
+            time.sleep(1)
+            cur.execute(sql, (title, ))
+            conn.commit()
+        except Exception  as e:
+            print(e)
