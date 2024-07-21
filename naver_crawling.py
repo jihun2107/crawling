@@ -178,7 +178,7 @@ with conn.cursor() as cur:
                 """
 
             time.sleep(1)
-            cur.execute(sql, (title, ))
+            cur.execute(sql, (title, review))
             conn.commit()
         except Exception  as e:
             print(e)
