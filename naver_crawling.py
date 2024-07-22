@@ -5,7 +5,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 import pymysql
 import time
-from datetime import datetime
 
 
 # 네이버 플레이스에서 각 맛집의 블로그 리뷰를 
@@ -124,6 +123,7 @@ for i in restaurants:
     try:
         # 네이버 플레이스 홈화면을 브라우저로 띄움
         browser.get(url)
+        print(f'지금은 다음 가게를 검색 중 입니다.: {i}')
 
         # 검색창 찾기
         search = browser.find_element(By.CLASS_NAME, "input_search")
@@ -131,15 +131,16 @@ for i in restaurants:
         # 검색창에 맛집 리스트 순서대로 맛집 입력
         print('검색어 입력 중')
         search.send_keys(i)
+        time.sleep(2)
+
 
         # 검색창으로 검색(엔터를 누름)
         search.send_keys(Keys.ENTER)
+        time.sleep(2)
 
         # 검색창 비우기
         search.send_keys(Keys.COMMAND + "a")
-        time.sleep(1.5)
         search.send_keys(Keys.BACK_SPACE)
-        time.sleep(2)
 
         # 맛집을 클릭할 수 있도록 프레임 이동
         print("프레임 이동 중")
@@ -148,11 +149,13 @@ for i in restaurants:
 
         # 첫번째로 나온 맛집을 클릭
         print("첫 번째 맛집 클릭")
-        browser.find_element(By.CLASS_NAME, "qbGlu").click()
+        good_restaurant = browser.find_element(By.CLASS_NAME, "qbGlu")
+        good_restaurant.click()
 
         # 메인프레임으로 이동
-        print("프레임 이동 중")
+        print("메인 프레임으로 이동 중")
         browser.switch_to.default_content()
+        time.sleep(3)
 
         # 리뷰 페이지로 갈 수 있도록 프레임 이동
         print("프레임 이동 중")
@@ -160,9 +163,11 @@ for i in restaurants:
         time.sleep(2)
 
         # 리뷰 버튼 클릭
+        print("리뷰 버튼 클릭")
         browser.find_elements(By.CLASS_NAME, "veBoZ")[3].click()
 
         # 블로그 리뷰 버튼 클릭
+        print('블로그 리뷰 버튼 클릭')
         browser.find_elements(By.CLASS_NAME, "YsfhA")[1].click()
         time.sleep(2)
 
@@ -176,10 +181,12 @@ for i in restaurants:
         # 메인프레임으로 이동
         print("프레임 이동 중")
         browser.switch_to.default_content()
+
+        print(blog_url_list)
     except:
         pass
 
-
+print(blog_url_list)
 
 # MySQL과 연결
 conn = pymysql.connect(
