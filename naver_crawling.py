@@ -168,8 +168,11 @@ for i in restaurants:
 
         # 블로그 리뷰 버튼 클릭
         print('블로그 리뷰 버튼 클릭')
-        browser.find_elements(By.CLASS_NAME, "YsfhA")[1].click()
-        time.sleep(2)
+        btns = browser.find_elements(By.CLASS_NAME, "YsfhA")[1].click()
+        for btn in btns:
+            if btn.text == "리뷰":
+                btn.click()
+                break
 
         # 블로그 url 크롤링
         print("블로그 url를 크롤링 중 입니다.")
@@ -181,8 +184,7 @@ for i in restaurants:
         # 메인프레임으로 이동
         print("프레임 이동 중")
         browser.switch_to.default_content()
-
-        print(blog_url_list)
+        
     except:
         pass
 
@@ -205,6 +207,9 @@ with conn.cursor() as cur:
         try:
             # 블로그에 들어감
             browser.get(i)
+
+            # 스크랩을 할 수 있도록 프레임 전환
+            browser.switch_to.frame(browser.find_element(By.ID, 'mainFrame'))
 
             # 블로그에 타이틀과 리뷰 글을 스크랩
             title = browser.find_element(By.CLASS_NAME, 'pcol1').text
