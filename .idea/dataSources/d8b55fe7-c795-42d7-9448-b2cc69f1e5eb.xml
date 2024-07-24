@@ -1074,7 +1074,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="291" parent="1" name="diningcode">
-      <LastIntrospectionLocalTimestamp>2024-07-24.07:49:48</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-07-24.09:57:21</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="292" parent="1" name="fishbread_db">
@@ -1084,7 +1084,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb3_general_ci</CollationName>
     </schema>
     <schema id="294" parent="1" name="mydatabase">
-      <LastIntrospectionLocalTimestamp>2024-07-24.07:49:48</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-07-24.09:57:21</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="295" parent="1" name="mysql">
@@ -1097,7 +1097,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="298" parent="1" name="yes24">
-      <LastIntrospectionLocalTimestamp>2024-07-24.07:49:48</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-07-24.09:57:21</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="299" parent="1" name="fish_bread_user">

@@ -22,7 +22,7 @@ class Crawling:
     """
 
     def __init__(self) -> object:
-        self._review_links = [] # 필요할까?
+        self._review_links = [] # 필요할까? -> 데이터베이스에서 블로그 크롤링 시 링크만 모두 담아오기
         self._browser: object
 
         ChromeDriverManager().install()
@@ -109,7 +109,6 @@ class Crawling:
 
             self.get_review_db(name=restaurant, title=review_title, link=review_link,
                                description=review_description)
-            self._review_links.append(review_link)
 
         self.set_crawling_check(restaurant)
         # 메인 프레임으로 이동
@@ -135,6 +134,11 @@ class Crawling:
 
     @staticmethod
     def set_restaurant_table(restaurant: str) -> None:
+        """
+        restaurant 테이블에 크롤링 하는 식당 이름을 생성 매서드
+        :param restaurant: 식당명
+        :return: None
+        """
         sql_restaurants_table = """
                                insert into restaurants (restaurant_name)
                                values (%s)
@@ -143,7 +147,14 @@ class Crawling:
 
     @staticmethod
     def get_review_db(name: str, title: str, link: str, description: str) -> None:
-
+        """
+        restaurant 테이블의 크롤링 하는 식당 레코드(행)을 생성하는 매서드
+        :param name:
+        :param title:
+        :param link:
+        :param description:
+        :return:
+        """
         sql = """
         select restaurants.restaurant_ID from restaurants
         where restaurant_name = (%s) limit 1;
@@ -157,7 +168,12 @@ class Crawling:
         excute_query(CONNECTION, sql, restaurants_id, title, link, description)
 
     @staticmethod
-    def set_crawling_check(restaurant):
+    def set_crawling_check(restaurant) -> None:
+        """
+        식당 하나의 리뷰 크롤링이 끝낫을 시 restaurant 테이블에 크롤링 완료 표시
+        :param restaurant: 식당명
+        :return: None
+        """
         sql = """
         update restaurants
         set restaurant_review_get_check = 1
@@ -165,28 +181,45 @@ class Crawling:
         """
         excute_query(CONNECTION, sql, restaurant)
 
-    def set_link_crawling_check(self):
-        pass
-
     # (2). 모은 블로그 리스트를 순회하며 블로그 main 내용 수집
-    def get_blogs(self):
+    def get_blogs(self) -> None:
         """
         리뷰 크롤링 과정에서 얻은 링크를 바탕으로 각각의 블로그에 접속하여 메인 text를 크롤링하는 매서드
-        :return:
+        :return: None
         """
         print("블로그 내용 수집 시작")
 
-        print(self._review_links)
-        for link in self._review_links:
-            self._browser.get(link)
+        sql = """
+            select review_ID, review_link from reviews;
+        """
+
+        reviews = excute_query(CONNECTION, sql)
+        for review in reviews:
+            review_id = review["review_ID"]
+            review_link = review["review_link"]
+
+            # 2-1) blog main
+            self._browser.get(review_link)
             self._browser.switch_to.frame(self._browser.find_element(By.ID, 'mainFrame'))
             blog = self._browser.find_element(By.CLASS_NAME, "se-main-container").text
             print(blog)
 
-# (3). 데이터베이스의 셋팅 테이블에 식당별 리뷰 크롤링, 블로그 크롤링 유무 체크
+            sql = """
+                    insert into blogs (review_ID, blog_text)
+                    values (%s, %s)
+                    """
+            excute_query(CONNECTION, sql,review_id, blog)
+
+            # 2-2) cafe main
+    def set_blog_crawling_check(self) -> None:
+        pass
+
+# (3). 데이터베이스의 셋팅 테이블에 식당별 리뷰 크롤링 (ok), 블로그 크롤링 유무 체크 (x)
 
 # (4). 크롤링 도중 멈췄을 시 멈춘 부분부터 다시 크롤링하는 기능 구현
 
 # (5). 데이터 베이스에 없는 식당을 추가로 크롤링하는 기능 구현
 
 # (6). 비동기 방식으로 병렬 크롤링 구현
+app = Crawling()
+app.get_blogs()
