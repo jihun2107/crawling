@@ -16,6 +16,7 @@
             <name qname="diningcode" />
             <name qname="@" />
             <name qname="yes24" />
+            <name qname="mydatabase" />
           </node>
         </introspection-scope>
       </schema-mapping>
