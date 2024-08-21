@@ -1,18 +1,20 @@
 import pymysql
 import pymysql.cursors
+from decouple import config
 
 CONNECTION = pymysql.connect(
-    host="localhost",
-    user="root",
-    password="1520528a",
-    database="diningcode",
+    host=config('HOST'),
+    user=config("USER"),
+    password=config("PASSWORD"),
+    database=config("DATABASE"),
     charset="utf8mb4",
     cursorclass=pymysql.cursors.DictCursor  # json 형식으로 데이터가 전달되는 경우가 많다
 )
 
+KAKAO_RESTAPI = config("KAKAO_RESTAPI_KEY")
 RESTAURANTS = [
     "명동교자 본점",
-    "만족 오향족발 시청점",
+    "만족 오향족발",
     "쟈니덤플링",
     "미즈컨테이너",
     "마코토",
@@ -117,6 +119,10 @@ use diningcode;
 create table restaurants (
     restaurant_ID INT AUTO_INCREMENT PRIMARY KEY,
     restaurant_name VARCHAR(255) NOT NULL,
+    restaurant_address VARCHAR(255),
+    restaurant_latitude VARCHAR(255),
+    restaurant_longitude VARCHAR(255),
+    restaurant_biz_id INT,
     review_crawling_check INT DEFAULT 0
 );
 

@@ -13,8 +13,8 @@
       <schema-mapping>
         <introspection-scope>
           <node kind="schema">
-            <name qname="diningcode" />
             <name qname="@" />
+            <name qname="diningcode" />
             <name qname="yes24" />
             <name qname="mydatabase" />
           </node>

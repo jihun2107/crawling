@@ -1068,7 +1068,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="289" parent="1" name="diningcode">
-      <LastIntrospectionLocalTimestamp>2024-07-31.12:46:50</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-08-13.07:36:02</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="290" parent="1" name="flask_db">
@@ -1077,160 +1077,175 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <schema id="291" parent="1" name="information_schema">
       <CollationName>utf8mb3_general_ci</CollationName>
     </schema>
-    <schema id="292" parent="1" name="mysql">
+    <schema id="292" parent="1" name="lotto">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="293" parent="1" name="performance_schema">
+    <schema id="293" parent="1" name="mysql">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="294" parent="1" name="restaurant">
+    <schema id="294" parent="1" name="performance_schema">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="295" parent="1" name="sys">
+    <schema id="295" parent="1" name="restaurant">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <user id="296" parent="1" name="fish_bread_user">
+    <schema id="296" parent="1" name="sys">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <user id="297" parent="1" name="fish_bread_user">
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <user id="297" parent="1" name="mysql.infoschema">
+    <user id="298" parent="1" name="mysql.infoschema">
       <CanLogin>0</CanLogin>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <user id="298" parent="1" name="mysql.session">
+    <user id="299" parent="1" name="mysql.session">
       <CanLogin>0</CanLogin>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <user id="299" parent="1" name="mysql.sys">
+    <user id="300" parent="1" name="mysql.sys">
       <CanLogin>0</CanLogin>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <user id="300" parent="1" name="root">
+    <user id="301" parent="1" name="root">
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <table id="301" parent="289" name="blogs">
+    <table id="302" parent="289" name="blogs">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="302" parent="289" name="restaurants">
+    <table id="303" parent="289" name="restaurants">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="303" parent="289" name="reviews">
+    <table id="304" parent="289" name="reviews">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <column id="304" parent="301" name="blog_ID">
+    <column id="305" parent="302" name="blog_ID">
       <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="305" parent="301" name="review_ID">
+    <column id="306" parent="302" name="review_ID">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="306" parent="301" name="blog_text">
+    <column id="307" parent="302" name="blog_text">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <foreign-key id="307" parent="301" name="blogs_ibfk_1">
+    <foreign-key id="308" parent="302" name="blogs_ibfk_1">
       <ColNames>review_ID</ColNames>
       <RefColNames>review_ID</RefColNames>
       <RefTableName>reviews</RefTableName>
     </foreign-key>
-    <index id="308" parent="301" name="PRIMARY">
+    <index id="309" parent="302" name="PRIMARY">
       <ColNames>blog_ID</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="309" parent="301" name="review_ID">
+    <index id="310" parent="302" name="review_ID">
       <ColNames>review_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="310" parent="301" name="PRIMARY">
+    <key id="311" parent="302" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="311" parent="302" name="restaurant_ID">
+    <column id="312" parent="303" name="restaurant_ID">
       <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="312" parent="302" name="restaurant_name">
+    <column id="313" parent="303" name="restaurant_name">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="313" parent="302" name="review_crawling_check">
-      <DasType>int|0s</DasType>
-      <DefaultExpression>0</DefaultExpression>
+    <column id="314" parent="303" name="restaurant_address">
+      <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <index id="314" parent="302" name="PRIMARY">
+    <column id="315" parent="303" name="restaurant_latitude">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="316" parent="303" name="restaurant_longitude">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="317" parent="303" name="review_crawling_check">
+      <DasType>int|0s</DasType>
+      <DefaultExpression>0</DefaultExpression>
+      <Position>6</Position>
+    </column>
+    <index id="318" parent="303" name="PRIMARY">
       <ColNames>restaurant_ID</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="315" parent="302" name="PRIMARY">
+    <key id="319" parent="303" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="316" parent="303" name="review_ID">
+    <column id="320" parent="304" name="review_ID">
       <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="317" parent="303" name="restaurant_ID">
+    <column id="321" parent="304" name="restaurant_ID">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="318" parent="303" name="review_title">
+    <column id="322" parent="304" name="review_title">
       <DasType>varchar(2048)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="319" parent="303" name="review_link">
+    <column id="323" parent="304" name="review_link">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="320" parent="303" name="review_description">
+    <column id="324" parent="304" name="review_description">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="321" parent="303" name="blog_crawling_check">
+    <column id="325" parent="304" name="blog_crawling_check">
       <DasType>int|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>6</Position>
     </column>
-    <foreign-key id="322" parent="303" name="reviews_ibfk_1">
+    <foreign-key id="326" parent="304" name="reviews_ibfk_1">
       <ColNames>restaurant_ID</ColNames>
       <RefColNames>restaurant_ID</RefColNames>
       <RefTableName>restaurants</RefTableName>
     </foreign-key>
-    <index id="323" parent="303" name="PRIMARY">
+    <index id="327" parent="304" name="PRIMARY">
       <ColNames>review_ID</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="324" parent="303" name="restaurant_ID">
+    <index id="328" parent="304" name="restaurant_ID">
       <ColNames>restaurant_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="325" parent="303" name="PRIMARY">
+    <key id="329" parent="304" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
